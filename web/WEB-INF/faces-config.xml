@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config
+        xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+        version="2.2">
+    <managed-bean>
+        <managed-bean-name>TimeSelectionController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.TimeSelectionController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>LoginController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.LoginController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>AccountController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.AccountController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>SettingsController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.SettingsController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>UserEditController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.UserEditController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>index</from-outcome>
+            <to-view-id>/index.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>account</from-outcome>
+            <to-view-id>/panel/account.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>my</from-outcome>
+            <to-view-id>/panel/my.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>manage</from-outcome>
+            <to-view-id>/panel/manage.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>settings</from-outcome>
+            <to-view-id>/admin/settings.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <display-name>*</display-name>
+        <from-view-id>*</from-view-id>
+        <navigation-case>
+            <from-outcome>reserve</from-outcome>
+            <to-view-id>/panel/reserve.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <managed-bean>
+        <managed-bean-name>ReservationViewController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.ReservationViewController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+    <managed-bean>
+        <managed-bean-name>PropertiesController</managed-bean-name>
+        <managed-bean-class>com.AptiTekk.Agenda.web.controllers.PropertiesController</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+    </managed-bean>
+</faces-config>
