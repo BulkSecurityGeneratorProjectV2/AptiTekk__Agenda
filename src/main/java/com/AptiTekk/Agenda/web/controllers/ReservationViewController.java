@@ -4,9 +4,11 @@ import com.AptiTekk.Agenda.core.ReservationService;
 import com.AptiTekk.Agenda.core.UserService;
 import com.AptiTekk.Agenda.core.entity.Reservation;
 import com.AptiTekk.Agenda.core.entity.User;
-import java.util.Date;
+import com.AptiTekk.Agenda.core.utilities.AgendaLogger;
+import com.AptiTekk.Agenda.core.utilities.FacesSessionHelper;
+import java.util.ArrayList;
+import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedProperty;
 import javax.inject.Inject;
 import org.primefaces.model.DefaultScheduleEvent;
 import org.primefaces.model.LazyScheduleModel;
@@ -24,16 +26,19 @@ public class ReservationViewController {
     @Inject
     private UserService userService;
 
-    @ManagedProperty(value = "#{AccountController}")
-    private AccountController accountController;
-
     private User user;
 
-    private ScheduleModel lazyEventModel;
+    private ScheduleModel lazyEventModel = new LazyScheduleModel();
+    
+    private List<Reservation> cardModels = new ArrayList<Reservation>();
 
     @PostConstruct
     public void init() {
-        setUser(accountController.getUser());
+        String username
+                = FacesSessionHelper.getSessionVariableAsString(UserService.SESSION_VAR_USERNAME);
+        if (username != null) {
+            this.setUser(userService.findByName(username));
+        }
     }
 
     public static DefaultScheduleEvent toEvent(Reservation res) {
@@ -44,14 +49,6 @@ public class ReservationViewController {
         event.setDescription(res.getDescription());
         return event;
     }
-    
-    public AccountController getAccountController() {
-        return accountController;
-    }
-
-    public void setAccountController(AccountController accountController) {
-        this.accountController = accountController;
-    }
 
     public User getUser() {
         return user;
@@ -59,17 +56,25 @@ public class ReservationViewController {
 
     public void setUser(User user) {
         this.user = user;
-        
-        lazyEventModel = new LazyScheduleModel() {
+        updateEvents(user);
+        updateCards(user);
+    }
 
-            @Override
-            public void loadEvents(Date start, Date end) {
-                for (Reservation res : ((user == null) ? resService.getAll() : 
-                        userService.get(user.getId()).getReservations())) {
-                    addEvent(toEvent(res));
-                }
-            }
-        };
+    public void updateEvents(User user) {
+        AgendaLogger.logVerbose("Changing user, changing event model.");
+        lazyEventModel.clear();
+        ((user == null) ? resService.getAll()
+                : user.getReservations()).stream().forEach((res) -> {
+                    lazyEventModel.addEvent(toEvent(res));
+        });
+    }
+    
+    public void updateCards(User user) {
+        cardModels.clear();
+        for (Reservation res : ((user == null) ? resService.getAll()
+                : user.getReservations())) {
+            cardModels.add(res);
+        }
     }
 
     public ScheduleModel getLazyEventModel() {
@@ -79,5 +84,15 @@ public class ReservationViewController {
     public void setLazyEventModel(ScheduleModel lazyEventModel) {
         this.lazyEventModel = lazyEventModel;
     }
+
+    public List<Reservation> getCardModels() {
+        return cardModels;
+    }
+
+    public void setCardModels(List<Reservation> cardModels) {
+        this.cardModels = cardModels;
+    }
+    
+    
 
 }

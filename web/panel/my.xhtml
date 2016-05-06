@@ -12,6 +12,25 @@
 	<ui:define name="content">
 		<b:container>
                     <h2 style="margin-top:50px">My Reservations</h2>
+                    
+                    <b:column colMd="9" colXs="12">
+                        <p:schedule value="#{ReservationViewController.lazyEventModel}" />
+                    </b:column>
+                    <b:column colMd="3">
+                        <ui:fragment rendered="#{not empty ReservationViewController.cardModels}">
+                            <ui:repeat value="#{ReservationViewController.cardModels}" var="card">
+                                <b:panel title="#{card.title} - #{card.reservable.name}" look="info">
+                                    <h4>#{card.title}</h4>
+                                    <h6>#{card.description}</h6>
+                                    <p>#{card.timeStart}</p>
+                                    <p>#{card.timeEnd}</p>
+                                </b:panel>
+                            </ui:repeat>
+                        </ui:fragment>
+                        <ui:fragment rendered="#{empty ReservationViewController.cardModels}">
+                            <i>No Reservations</i>
+                        </ui:fragment>
+                    </b:column>
 		</b:container>
 	</ui:define>
 </ui:composition>

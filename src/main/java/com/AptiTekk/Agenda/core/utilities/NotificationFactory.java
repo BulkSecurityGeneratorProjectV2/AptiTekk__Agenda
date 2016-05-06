@@ -254,7 +254,7 @@ public class NotificationFactory {
                 .setTo(notification.getUser())
                 .setSubject(notification.getSubject())
                 .setBody(notification.getBody())
-                .build((Object) null);
+                .build(null);
 
     }
 

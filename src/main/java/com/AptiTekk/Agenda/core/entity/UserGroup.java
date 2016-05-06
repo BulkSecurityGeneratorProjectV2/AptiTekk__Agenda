@@ -113,5 +113,9 @@ public class UserGroup implements Serializable {
   public void setChildren(List<UserGroup> children) {
     this.children = children;
   }
+  
+  public String toString() {
+      return this.getName();
+  }
 
 }
